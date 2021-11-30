@@ -1,0 +1,87 @@
+Comandos git:
+Iniciar carpeta:
+Crear carpeta y dar clic derecho sobre ella y seleccionar la opción de "git bash here"
+
+git init
+
+Si se inicializa por primera vez hacer la conexión con el repositorio haciendo clic en clone y copiendo el link de HTTPS
+ Pegar el link en git bash
+
+Añadir archivo:
+git add <archivo.extension>
+
+
+///Instrucciones de página web:
+
+SUBIR NUESTRO PROYECTO EN GIT CON BITBUCKET
+Para subir nuestro proyecto en git con BitBucket, podemos seguir los siguientes pasos sin complicarnos la vida de la forma más simple.
+
+Nota: Para eliminar los archivos .git de un proyecto (local)
+$ rm -rf .git
+
+1.-Creamos el repositorio GIT (local)
+
+$ git init
+
+//creamos .gitignore
+
+$ nano .gitignore
+
+Agregamos:
+*.pdf
+*.sql
+
+$ git status //ver el estado de los archivos deberia de mostrar que los archivos aun faltan agregar
+
+$ git add -A //Agregar todo los archivos
+
+$ git commit -m “Inicializacion de versionamiento del nuevo repositorio”
+
+$ git status
+# On branch master
+nothing to commit (working directory clean)
+2.-Enlazamos el git remoto de bitbucket (Remoto)
+
+$ git remote add origin https://<MI_USUARIO>@bitbucket.org/<MI_PROYECTO>/<REPOSITORIO>.git
+
+$ git remote -v //Podremos ver las url a donde están apuntando
+
+$ cat .git/config //Otra forma de ver la configuración
+
+Nota: si deseamos eliminar el origen (origin remote url), ejecutamos:
+
+$ git remote rm origin
+
+(y continuamos desde el inicio del paso 2 si es que hemos optado por eliminar y querer volver a especificar el origen) 
+
+Subimos los archivos al git remote
+
+$ git push -u origin master
+
+3.-Subiendo un cambio de local a remoto
+
+Primero guardamos los cambios en local
+
+$ git status
+$ git add -A
+$ git commit -m “se guarda los cambios”
+$ git status
+
+4.- Subimos los cambios al bitbucket
+
+$ git push origin master
+
+5.-Bajando los cambios (otro usuario)
+
+$ git pull origin master
+
+6.-Bajando los cambios (todos los branch’s)
+
+$ git pull
+
+7.-Eliminar branch en el repositorio remoto
+
+$ git push –delete  origin <branch_name>
+
+
+Fuente:https://perudev.pe/blog/subir-nuestro-proyecto-en-git-con-bitbucket/
