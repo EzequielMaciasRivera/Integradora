@@ -685,7 +685,8 @@ app.get('/api/home-guest',decrypted,async function(req, res) {
            
             try{
 
-                result = await db.collection("Libros").find().toArray();
+                result = await db.collection("productos").find().toArray();
+                console.log(result)
                 res.json(result)
  
             }finally{

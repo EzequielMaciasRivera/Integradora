@@ -13,6 +13,7 @@ export class LibroCardComponent implements OnInit {
   
   @Output() libroSeleccionado: EventEmitter<number>;
 
+  public imagen: string = "../../assets/images/wp3797698.jpg";
   constructor(private router: Router) {
     this.libroSeleccionado = new EventEmitter();
    }
@@ -27,8 +28,20 @@ export class LibroCardComponent implements OnInit {
 
   limitador (str: string){
 
-    const fin = str.substring(0, 45);
-    return fin
+
+    const fin = str.substring(0, 20);
+    
+    if (str.length > 20){
+      return fin + "..."
+    }else
+    {
+      return fin
+    }
+    
+  }
+
+  a(){
+    console.log("Funcion agregar al carro")
   }
 
 }
