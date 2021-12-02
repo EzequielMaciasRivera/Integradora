@@ -155,6 +155,16 @@ export class ServiceService {
     );
   }
 
+  addAddress(idx: string, Direccion: string): Observable<{}> {
+    console.log("Actualizado");
+    console.log(Direccion);
+    let url = this.apiUrl + `update-Direccion/${idx}/${Direccion}`;
+    console.log(url);
+    return this.http.post(url, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   correoUser(idx: string, email: string): Observable<{}> {
     console.log("Actualizado");
     console.log(email);

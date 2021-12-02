@@ -1,23 +1,22 @@
 body {
-    background-image: url('https://images5.alphacoders.com/919/thumb-1920-919004.jpg');background-repeat: no-repeat; background-size: cover;
-}
-.jumbotron {
-    margin-bottom: 20px;
-    background-image: url('https://acegif.com/wp-content/gifs/book-64.gif');
-    width: 64%;
-    height: 100%;
-    color: white;
+    background-image: url('https://media.istockphoto.com/vectors/fruit-and-berry-background-abstract-food-seamless-pattern-fresh-vector-id1194235751');
+    background-repeat: no-repeat; background-size: cover;
 
-
-    
-        border-radius: 0px 115px 59px 59px;
-        -moz-border-radius: 0px 115px 59px 59px;
-        -webkit-border-radius: 0px 115px 59px 59px;
-        border: 0px solid #000000;
+    opacity: 0.8;
+    filter: alpha(opacity=50);
 }
 
 
-.Librería{
+
+.titulo{
+    margin-top: 12%;
  font-size: 3.5rem;
- color: white;
+ color: #000000;
+ font-weight: bold;
+ 
+}
+.Letter{
+    color: #000000;
+    font-size: 1.5rem;
+    font-weight: bold;
 }

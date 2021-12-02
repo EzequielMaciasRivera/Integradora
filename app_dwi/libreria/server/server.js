@@ -901,12 +901,12 @@ app.post('/api/update-email/:id/:email', async function (req, res,next) {
     });
 });
 
-app.post('/api/new-Direccion/:id/:Direccion', async function(req,res,next){ 
+app.post('/api/update-Direccion/:id/:Direccion', async function(req,res,next){ 
     await client.connect(function(err){
         if(err) throw err;
      var dbo = client.db(dbName);
      var query = { _id: parseInt(req.params.id) };
-        var value = { $push: {Direccion: {id:req.params.Direccion} } };   
+        var value = { $set: {Direccion: {id:req.params.Direccion} } };   
         //{$push: {Direccion: {id: Direccion}}};
         console.log(query);
         console.log(value);
