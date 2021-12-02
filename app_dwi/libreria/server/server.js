@@ -1425,8 +1425,8 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
         //var registro = JSON.parse(req.params.reg);  
         /* console.log(registro); */
         var _id;
-        var Titulo = req.body.Titulo; 
-        var Editorial = req.body.Editorial; 
+        var Producto = req.body.Producto; 
+        var Marca = req.body.Marca; 
         var Fecha_inicio = req.body.Fecha_inicio;
         var Fecha_fin = req.body.Fecha_fin;   
         var Precio = req.body.Precio;
@@ -1445,9 +1445,9 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
                             if(err) throw err;
                             var data = { 
                                 "_id" : parseInt(res1[0]._id)+1,
-                                "Titulo": Titulo,
+                                "Producto": Producto,
                                 "Usuario": email,
-                                "Editorial":Editorial, 
+                                "Marca": Marca, 
                                 "Fecha_inicio":Fecha_inicio,
                                 "Fecha_fin": Fecha_fin,
                                 "Precio":Precio, 

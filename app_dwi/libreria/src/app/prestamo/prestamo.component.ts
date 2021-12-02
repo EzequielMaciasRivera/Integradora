@@ -20,9 +20,9 @@ export class PrestamoComponent implements OnInit {
   public ismodelShown: boolean = false;
 
   RegistroFormGrup = this.fb.group({
-    Titulo: ['',[Validators.required]],
+    Producto: ['',[Validators.required]],
     email: ['',[Validators.required]],
-    Editorial: ['',[Validators.required]],
+    Marca: ['',[Validators.required]],
     Fecha_inicio: ['',[Validators.required]],
     Fecha_fin : ['',[Validators.required]],
     Precio : ['',[Validators.required]],
@@ -64,9 +64,9 @@ export class PrestamoComponent implements OnInit {
   }
   
   AddPrestamo(){
-    this.RegistroFormGrup.patchValue({Titulo: this.libro.Titulo})
+    this.RegistroFormGrup.patchValue({Producto: this.libro.Producto})
     this.RegistroFormGrup.patchValue({Clave: this.libro.Clave})
-    this.RegistroFormGrup.patchValue({Editorial: this.libro.Editorial})
+    this.RegistroFormGrup.patchValue({Marca: this.libro.Marca})
     this.RegistroFormGrup.patchValue({Precio: this.libro.Precio})
     this.RegistroFormGrup.patchValue({RutaDeImagen: this.libro.RutaDeImagen})
     this.RegistroFormGrup.patchValue({email: this._LibrosService.getUser()})

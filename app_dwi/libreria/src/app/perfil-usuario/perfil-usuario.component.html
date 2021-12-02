@@ -29,17 +29,17 @@
                     <thead>
                         <tr>
                             <th *ngIf="this._Service.getAdmin()" style="font-size: 15px;">Cliente</th>
-                            <th style="font-size: 15px;">Título</th>
+                            <th style="font-size: 15px;">Producto</th>
                             <th style="font-size: 15px;">Fecha de inicio</th>
                             <th style="font-size: 15px;">Fecha de fin</th>
-                            <th style="font-size: 15px;">Estado del prestamo</th>
+                            <th style="font-size: 15px;">Estado del envio</th>
                             <th *ngIf="this._Service.getAdmin()" style="font-size: 15px;">Finalizado</th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let item of libros">
                         <tr *ngIf="item.Status">
                             <td *ngIf="this._Service.getAdmin()">{{ item.Usuario }}</td>
-                            <td>{{ item.Titulo }}</td>
+                            <td>{{ item.Producto }}</td>
                             <td>{{ item.Fecha_inicio }}</td>
                             <td>{{ item.Fecha_fin }}</td>
                             <td *ngIf="item.Status">No entregado</td>
