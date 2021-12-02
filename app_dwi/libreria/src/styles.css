@@ -48,7 +48,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 
   .fondo_libro{
-    background-image: url(assets/images/fondo.jpg);
+    background: white;
     width: 100%;  
     min-height: 100vh;
     display: -webkit-box;

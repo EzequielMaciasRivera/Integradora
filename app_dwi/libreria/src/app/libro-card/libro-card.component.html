@@ -17,7 +17,7 @@
         </div>
        
     </div>
-    <div class="card-header" style="background: url({{libro.RutaDeImagen}}); background-size: cover;">
+    <div (click) = "verLibro()" class="card-header" style="background: url({{libro.RutaDeImagen}}); background-size: cover;">
         <div class="card-header-icon">
             
             <a href="#">
@@ -29,7 +29,7 @@
     <div class="card-movie-content">
         
         <div class="card-movie-content-head">
-            <a href="#">
+            <a (click) = "verLibro()">
                 <h3 class="" >{{this.limitador(libro.Producto)}}</h3>
             </a>
             <div class="ratings"><span>$ </span>{{libro.Precio}}.00</div>

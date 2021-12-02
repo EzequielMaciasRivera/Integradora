@@ -758,7 +758,7 @@ app.get('/api/libro/:id', async function(req, res, next){
 
                             try{
 
-                                 send =  await db.collection('Libros').findOne({_id: idProd}).then(result =>{
+                                 send =  await db.collection('productos').findOne({_id: idProd}).then(result =>{
                                      res.json(result)
                                      console.log(result)
                                  })
