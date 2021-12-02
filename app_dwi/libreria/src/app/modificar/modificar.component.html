@@ -11,22 +11,22 @@
         </div>
     
         <div class="col-md-8">
-            <h2 class="animated fadeIn" style="text-align: center;color: black;">{{ libro.Titulo }}</h2>
+            <h2 class="animated fadeIn" style="text-align: center;color: black;">{{ libro.Producto }}</h2>
             <hr>
-            <p><img src="https://www.gandhi.com.mx/media/wysiwyg/imagenes/detalles/numero_de_paginas.png"> Editorial: {{ libro.Editorial }}</p>
-            <p><img src="https://www.gandhi.com.mx/media/wysiwyg/imagenes/detalles/edicion.png"> Autor(a): {{ libro.Autor }}</p>
-            <p><img src="https://www.gandhi.com.mx/media/wysiwyg/imagenes/detalles/sku.png"> Clave ISBN: {{ libro.Clave }}</p>
+            <p><img width="50px" height="50px" src="../../assets/images/product.png"> Producto: {{ libro.Producto }}</p>
+            <p><img width="50px" height="50px" src="../../assets/images/marca.png"> Marca: {{ libro.Marca }}</p>
+            <p><img width="50px" height="50px" src="../../assets/images/clave.png"> Clave ISBN: {{ libro.Clave }}</p>
             
             <form #bookForm="ngForm" (ngSubmit)="EditBook(bookForm)">
                 
                 <input class="form-control mr-sm-2" type="hidden" placeholder="Editar id" name="_id" 
                 #_id="ngModel" [(ngModel)]="libro._id">
                 
-                <p><img src="https://icon-icons.com/icons2/906/PNG/48/invoice_icon-icons.com_70095.png"> 
+                <p><img width="50px" height="50px" src="../../assets/images/Precio.png"> 
                     <input class="form-control mr-sm-2" type="text" placeholder="Editar Precio" name="Precio" 
                     #Precio="ngModel" [(ngModel)]="libro.Precio">
                 </p>
-                <p><img src="https://www.gandhi.com.mx/media/wysiwyg/imagenes/detalles/formato.png"> 
+                <p><img width="50px" height="50px" src="../../assets/images/unidad.png"> 
                     <input class="form-control mr-sm-2" type="text" placeholder="Editar Unidades" name="UnidadesDisponibles" 
                     #UnidadesDisponibles="ngModel" [(ngModel)]="libro.UnidadesDisponibles">
                 </p>

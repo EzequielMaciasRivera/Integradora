@@ -1410,7 +1410,7 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
            /*  var uni = ( parseInt(req.params.unidad)); */
             console.log(query);
             console.log(val);
-            dbo.collection("Libros").updateOne(query, val, function(err, result){
+            dbo.collection("productos").updateOne(query, val, function(err, result){
                 if (err) throw handleError(res, err.message, "Failed to update documents", 5000);
                 res.json("Documento actualizado");
             })
