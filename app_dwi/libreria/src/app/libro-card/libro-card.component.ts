@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ServiceService } from '../service/service.service';
 
 @Component({
   selector: 'app-libro-card',
@@ -10,14 +11,17 @@ export class LibroCardComponent implements OnInit {
 
   @Input() libro: any = {};
   @Input() index: number = 0;
+  admin: boolean = false;
   
   @Output() libroSeleccionado: EventEmitter<number>;
 
-  constructor(private router: Router) {
+  public imagen: string = "../../assets/images/wp3797698.jpg";
+  constructor(private _librosService: ServiceService,private router: Router) {
     this.libroSeleccionado = new EventEmitter();
    }
 
   ngOnInit(): void {
+    this.admin=this._librosService.getAdmin();
   }
 
   verLibro(){
@@ -27,8 +31,20 @@ export class LibroCardComponent implements OnInit {
 
   limitador (str: string){
 
-    const fin = str.substring(0, 45);
-    return fin
+
+    const fin = str.substring(0, 20);
+    
+    if (str.length > 20){
+      return fin + "..."
+    }else
+    {
+      return fin
+    }
+    
+  }
+
+  a(){
+    console.log("Funcion agregar al carro")
   }
 
 }

@@ -1,4 +1,4 @@
-<div *ngIf="libro.activo"  class="card animated fadeIn fast">
+<!-- <div *ngIf="libro.activo"  class="card animated fadeIn fast">
     <img class="card-img-top img-fluid" [src] = "libro.RutaDeImagen" [alt]="libro.Titulo" style="height: 350px">
     <div class="card-body">
         <h4 class="card-title">{{ this.limitador(libro.Titulo) }}</h4>
@@ -7,5 +7,42 @@
         <button (click) = "verLibro()" type="button" class="btn btn-outline-primary btn-block">
             Ver más...
         </button>
+    </div>
+</div>
+ -->
+<div *ngIf="libro.activo" class="card-view">
+    <div *ngIf="!this.admin" class="addCar" (click)="a()">
+        <div class="cardI">
+            <mat-icon style="color: aliceblue; font-size: 30px;">add_shopping_cart</mat-icon>
+        </div>
+       
+    </div>
+    <div (click) = "verLibro()" class="card-header" style="background: url({{libro.RutaDeImagen}}); background-size: cover;">
+        <div class="card-header-icon">
+            
+            <a href="#">
+               
+            </a>
+        </div>
+    </div>
+
+    <div class="card-movie-content">
+        
+        <div class="card-movie-content-head">
+            <a (click) = "verLibro()">
+                <h3 class="" >{{this.limitador(libro.Producto)}}</h3>
+            </a>
+            <div class="ratings"><span>$ </span>{{libro.Precio}}.00</div>
+        </div>
+        <div class="card-movie-info">
+            <div class="movie-running-time">
+                <label>Disponibles:</label>
+                <span>Clave: {{libro.Clave}}</span>
+            </div>
+            <div class="movie-running-time">
+                <label>{{libro.UnidadesDisponibles}}</label>
+                <span>{{libro.Marca}}</span>
+            </div>
+        </div>
     </div>
 </div>

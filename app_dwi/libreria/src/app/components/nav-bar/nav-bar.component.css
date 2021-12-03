@@ -1,5 +1,5 @@
 mat-toolbar{
-    background: #000;
+    background: #708b00;
     color: white;
     position: fixed;
     z-index: 99;
@@ -96,6 +96,14 @@ mat-icon {
     top: 30%;
 }
 
+.cart{
+    position: absolute;
+    left: 80%; 
+    margin: 0; 
+    top: 30%;
+    cursor: pointer;
+}
+
 
 @media (max-width: 600px){
     mat-sidenav{
@@ -131,6 +139,13 @@ mat-icon {
     cursor: pointer;
 }
 
+.cart{
+    position: absolute;
+    left: 81%; 
+    margin: 0; 
+    top: 30%;
+    cursor: pointer;
+}
 
 .InputSearch{
     width: 100%;
@@ -149,7 +164,7 @@ mat-icon {
 }
 
 .borde{
-    width:50px;
+    width:70px;
     height:40px;
     border-radius: 0px 115px 59px 59px;
 -moz-border-radius: 0px 115px 59px 59px;

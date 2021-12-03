@@ -35,6 +35,9 @@ import {environment} from '../environments/environment';
 import { ModificarComponent } from './modificar/modificar.component';
 import { MessageComponent } from './message/message.component';
 import { BienvenidaComponent } from './bienvenida/bienvenida.component';
+
+import { NgxPayPalModule } from 'ngx-paypal';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +73,8 @@ import { BienvenidaComponent } from './bienvenida/bienvenida.component';
     MatSlideToggleModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxPayPalModule
   ],
   
   

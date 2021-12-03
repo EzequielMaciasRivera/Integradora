@@ -2,13 +2,13 @@
 <a href="" class="nav-link" [routerLink]="['home']">Librería</a> -->
 
 <mat-toolbar class="tool" #tool>
-    <div *ngIf="!this.search">Libreria</div>
+    <div *ngIf="!this.search">GreenFood</div>
     <div *ngIf="this.state">
-        <a href="" [routerLink]="['/home']"><img src="https://acegif.com/wp-content/gifs/book-22.gif" class="borde" /> 
-                <div style="position: absolute;left: 70px; top: 20px;">
-                    <h3 *ngIf="title" class="hover1">Librería</h3>
-                    <h3 *ngIf="!title"class="hover2">Librería</h3>
-                </div>
+        <a href="" [routerLink]="['/home']"><img src="../../../assets/images/greegF.png" class="borde" /> 
+               <!--  <div style="position: absolute;left: 90px; top: 20px;">
+                    <h3 *ngIf="title" class="hover1">GreenFood</h3>
+                    <h3 *ngIf="!title"class="hover2">GreenFood</h3>
+                </div> -->
         </a>
     </div>
 
@@ -18,7 +18,10 @@
     <div class="iconSearch" (click)="showBar()">
         <mat-icon>search</mat-icon>
     </div>
-    <button style="position: absolute; right: 20px" mat-icon-button *ngIf="sidenav.mode === 'over'"
+    <div class="cart" (click)="cart()">
+        <mat-icon>add_shopping_cart</mat-icon>
+    </div>
+    <button style="position: absolute; right: 10px" mat-icon-button *ngIf="sidenav.mode === 'over'"
         (click)="sidenav.toggle()">
         <mat-icon *ngIf="!sidenav.opened">
             menu

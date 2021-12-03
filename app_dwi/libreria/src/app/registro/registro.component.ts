@@ -43,15 +43,6 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /* onSubmit(){
-    if(this.RegistroFormGrup.valid){
-      console.warn(this.RegistroFormGrup.value);
-      this.RegistroFormGrup.reset();
-      console.log('Exitoso');
-    }else if(!this.RegistroFormGrup.valid){
-      console.log('Error');
-    }
-  } */
 
   get form(){return this.RegistroFormGrup.controls}
   get FirstName() {return this.RegistroFormGrup.get('FirstName');}
