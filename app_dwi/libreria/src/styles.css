@@ -77,7 +77,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: rgba(255, 255, 255, 0.603);
   }
   .fondo_User{
-    background-image: url(assets/images/fondo2.jpg);
+    background-image: url('https://media.istockphoto.com/vectors/fruit-and-berry-background-abstract-food-seamless-pattern-fresh-vector-id1194235751%27');
     width: 100%;  
     /* margin-top: 56px; */
     min-height: 100vh;
