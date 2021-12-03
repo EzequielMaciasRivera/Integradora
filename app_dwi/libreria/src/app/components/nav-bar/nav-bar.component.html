@@ -18,7 +18,10 @@
     <div class="iconSearch" (click)="showBar()">
         <mat-icon>search</mat-icon>
     </div>
-    <button style="position: absolute; right: 20px" mat-icon-button *ngIf="sidenav.mode === 'over'"
+    <div class="cart">
+        <mat-icon>add_shopping_cart</mat-icon>
+    </div>
+    <button style="position: absolute; right: 10px" mat-icon-button *ngIf="sidenav.mode === 'over'"
         (click)="sidenav.toggle()">
         <mat-icon *ngIf="!sidenav.opened">
             menu

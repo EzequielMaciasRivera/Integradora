@@ -96,6 +96,14 @@ mat-icon {
     top: 30%;
 }
 
+.cart{
+    position: absolute;
+    left: 80%; 
+    margin: 0; 
+    top: 30%;
+    cursor: pointer;
+}
+
 
 @media (max-width: 600px){
     mat-sidenav{
@@ -131,6 +139,13 @@ mat-icon {
     cursor: pointer;
 }
 
+.cart{
+    position: absolute;
+    left: 81%; 
+    margin: 0; 
+    top: 30%;
+    cursor: pointer;
+}
 
 .InputSearch{
     width: 100%;

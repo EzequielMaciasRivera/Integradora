@@ -57,7 +57,7 @@ collection = "products";
 
 app.get('/api/products/:search', async function(req, res){
     const name = req.params.search;
-    const query = {Titulo: {$regex: '.*' + name + '.*',$options:"-i"}}
+    const query = {Producto: {$regex: '.*' + name + '.*',$options:"-i"}}
     var result;
 
     let client = await MongoClient.connect(url,
@@ -69,7 +69,7 @@ app.get('/api/products/:search', async function(req, res){
 
         if(name){
             
-            result = await db.collection("Libros").find(query).toArray();
+            result = await db.collection("productos").find(query).toArray();
 
             res.json(result)
 
