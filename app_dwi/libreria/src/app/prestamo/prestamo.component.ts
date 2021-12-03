@@ -5,7 +5,8 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { User } from '../service/user';
-import { ServiceService } from '../service/service.service'
+import { ServiceService } from '../service/service.service';
+import { IPayPalConfig,ICreateOrderRequest } from 'ngx-paypal';
 
 
 @Component({
@@ -16,8 +17,14 @@ import { ServiceService } from '../service/service.service'
 export class PrestamoComponent implements OnInit {
   id: String = "";
   libro: any = [];
+  carts: any = [];
+  total: any = "";
+  details: any;
   fecha: any;
   public ismodelShown: boolean = false;
+
+  public payPalConfig?: IPayPalConfig;
+  
 
   RegistroFormGrup = this.fb.group({
     Producto: ['',[Validators.required]],
@@ -31,26 +38,28 @@ export class PrestamoComponent implements OnInit {
 
   });
 
-  constructor(private router: Router,private activatedRoute: ActivatedRoute,private _LibrosService: ServiceService,private fb: FormBuilder) { }
+  constructor(private _librosService: ServiceService,private router: Router,private activatedRoute: ActivatedRoute,private _LibrosService: ServiceService,private fb: FormBuilder) {
+    this.initConfig();
+   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe( params => {
-      this.id = params['id'];
-      console.log(this.id)
-      this._LibrosService.getLibro(this.id).subscribe(book => {
-        this.libro = book;
-        console.log(this.libro);
-      },
-      error => {
-
-      });
-      
-    });
-
-    console.log("Prestamo"+this._LibrosService.getUser());
+    this.getItems();
+    
   }
 
   get form(){return this.RegistroFormGrup.controls}
+
+
+  getItems(){
+    this._librosService.getCart().subscribe(res =>{
+      this.carts = res.cart;
+      this._librosService.getTotal().subscribe(res =>{
+        this.total = res[0].total;
+        console.log(res);
+      })
+      console.log(this.carts);
+    })
+  }
 
 
   fechaInicio(start: any){
@@ -89,4 +98,73 @@ export class PrestamoComponent implements OnInit {
   RegresarALibro(){
     this.router.navigate(['/info',this.id]);
   }
+
+  home(){
+    this.router.navigateByUrl('/home');
+  }
+
+
+  public initConfig(): void {
+    this.payPalConfig = {
+        currency: 'MXN',
+        clientId: 'AVBPzKIIEcJqIvPp_M3xZvswzc37560x1z17XBamFgJz7Kpaq0R6n6g_XUbOQ7yAeSHYYlElklmtxyQS',
+        createOrderOnClient: (data) => < ICreateOrderRequest > {
+            intent: 'CAPTURE',
+            purchase_units: [{
+                amount: {
+                    currency_code: 'MXN',
+                    value: this.total.toString(),
+                    breakdown: {
+                        item_total: {
+                            currency_code: 'MXN',
+                            value: this.total.toString()
+                        }
+                    }
+                },
+                items: [{
+                    name: 'Enterprise Subscription',
+                    quantity: '1',
+                    category: 'DIGITAL_GOODS',
+                    unit_amount: {
+                        currency_code: 'MXN',
+                        value: this.total.toString(),
+                    },
+                }]
+            }]
+        },
+        advanced: {
+            commit: 'true'
+        },
+        style: {
+            label: 'paypal',
+            layout: 'vertical'
+        },
+        onApprove: (data, actions) => {
+            console.log('onApprove - transaction was approved, but not authorized', data, actions);
+            actions.order.get().then(details => {
+                console.log('onApprove - you can get full order details inside onApprove: ', details);
+            });
+
+        },
+        onClientAuthorization: (data) => {
+            console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+            /* this.showSuccess = true; */
+        },
+        onCancel: (data, actions) => {
+            console.log('OnCancel', data, actions);
+            /* this.showCancel = true; */
+
+        },
+        onError: err => {
+            console.log('OnError', err);
+            /* this.showError = true; */
+        },
+        onClick: (data, actions) => {
+            console.log('onClick', data, actions);
+            /* this.resetStatus(); */
+        },
+    };
+}
+
+
 }

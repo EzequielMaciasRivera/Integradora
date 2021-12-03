@@ -11,7 +11,7 @@
 </div>
  -->
 <div *ngIf="libro.activo" class="card-view">
-    <div class="addCar" (click)="a()">
+    <div *ngIf="!this.admin" class="addCar" (click)="a()">
         <div class="cardI">
             <mat-icon style="color: aliceblue; font-size: 30px;">add_shopping_cart</mat-icon>
         </div>

@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
   
-    path: 'prestamo/:id',
+    path: 'prestamo',
     component: PrestamoComponent
   },
   {

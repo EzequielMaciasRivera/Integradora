@@ -14,6 +14,7 @@ export class PerfilUsuarioComponent implements OnInit {
   public see: boolean = false;
   public ismodelShown: boolean = false;
   public Editar: any = 'Editar';
+  public Cambiar: any = 'Cambiar';
   users: any = [];
   prueba: any = [];
   libros: any = [];
@@ -101,9 +102,9 @@ open() {
     this.see = !this.see;
   
   if (this.see)
-      this.Editar = "Editar";
+      this.Cambiar = "cambiar";
     else
-      this.Editar = "Editar";
+      this.Cambiar = "cambiar";
   }
 
   confirmar( Telefono: string) {
@@ -118,7 +119,19 @@ open() {
     })
   }
 
-  correo( email: string) {
+  addAdress(Direccion:string) {
+    console.log("editar");
+    console.log(Direccion);
+    //console.log(this.prueba._id);
+
+    this._Service.addAddress(this.prueba._id,Direccion).subscribe(res => {
+      window.location.reload();
+    }, (err) => {
+      console.log(err);
+    })
+  }
+
+  /*correo( email: string) {
     console.log("editar");
     console.log(email);
     //console.log(this.prueba._id);
@@ -127,7 +140,7 @@ open() {
     }, (err) => {
       console.log(err);
     })
-  }
+  }*/
 
   
 

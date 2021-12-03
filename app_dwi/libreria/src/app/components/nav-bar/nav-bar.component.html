@@ -18,7 +18,7 @@
     <div class="iconSearch" (click)="showBar()">
         <mat-icon>search</mat-icon>
     </div>
-    <div class="cart">
+    <div class="cart" (click)="cart()">
         <mat-icon>add_shopping_cart</mat-icon>
     </div>
     <button style="position: absolute; right: 10px" mat-icon-button *ngIf="sidenav.mode === 'over'"

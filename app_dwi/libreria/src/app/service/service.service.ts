@@ -80,6 +80,38 @@ export class ServiceService {
     );
   }
 
+  getCart():Observable<any>{
+    console.log('getCart');
+    const ident = localStorage.getItem('_identity');
+    const token = localStorage.getItem('T_ac') != null ?localStorage.getItem('T_ac'):"";
+
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type':'application/json',
+       "Authorization": String(token),"_identity" : String(ident) })
+      
+    }
+    let url = `${this.apiUrl}getcart`;
+    return this.http.get<any>(url, httpOptions).pipe(
+    catchError(this.handleError)
+    );
+  }
+
+  getTotal():Observable<any>{
+    console.log('getCartTotal');
+    const ident = localStorage.getItem('_identity');
+    const token = localStorage.getItem('T_ac') != null ?localStorage.getItem('T_ac'):"";
+
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type':'application/json',
+       "Authorization": String(token),"_identity" : String(ident) })
+      
+    }
+    let url = `${this.apiUrl}getCartTotal`;
+    return this.http.get<any>(url, httpOptions).pipe(
+    catchError(this.handleError)
+    );
+  }
+
   verify():Observable<any>{
     const ident = localStorage.getItem('_identity');
     const token = localStorage.getItem('T_ac') != null ?localStorage.getItem('T_ac'):"";
@@ -126,6 +158,19 @@ export class ServiceService {
     );
   }
 
+  putAddCart(cart: any):Observable<any> {
+    let User = JSON.stringify(cart);
+    let url=`${this.apiUrl}cart/${User}`
+    console.log('Carrito');
+    console.log(cart);
+    /* console.log(JSON.stringify(user)); */
+    return this.http.put<any>(url,httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  
+
   perfil():Observable<any> {
     //var token = localStorage.getItem('T_ac')
     const ident = localStorage.getItem('_identity');
@@ -149,6 +194,16 @@ export class ServiceService {
     console.log("Actualizado");
     console.log(Telefono);
     let url = this.apiUrl + `update/${idx}/${Telefono}`;
+    console.log(url);
+    return this.http.post(url, httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  addAddress(idx: string, Direccion: string): Observable<{}> {
+    console.log("Actualizado");
+    console.log(Direccion);
+    let url = this.apiUrl + `update-Direccion/${idx}/${Direccion}`;
     console.log(url);
     return this.http.post(url, httpOptions).pipe(
       catchError(this.handleError)

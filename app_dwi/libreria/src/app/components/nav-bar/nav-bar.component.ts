@@ -127,8 +127,12 @@ sidenav!: MatSidenav;
         }
       }
 
-      perfil(){
+    perfil(){
         this.router.navigateByUrl("/perfil")
+    }
+
+    cart(){
+      this.router.navigateByUrl("/prestamo")
     }
 
     onEnter(){

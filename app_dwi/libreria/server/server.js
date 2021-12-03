@@ -16,6 +16,7 @@ const verifiToken  = require('./verifyToken')
 const { addSyntheticLeadingComment } = require('typescript');
 const decrypted = require('./decrypt');
 const decryptedInfo = require('./decryptInfo');
+const { ClientRequest } = require('http');
 
 /*var corsOptions = {
     origin:'http://10.0.0.4',
@@ -137,7 +138,7 @@ app.get('/api/user/:id', function(req, res){
         var dbo = client.db(dbName);
         var query={_id:parseInt(req.params.id)}//cambio
         //var query={_id: req.params.id}//cambio
-        console.log(query);
+        /* console.log(query); */
         dbo.collection("Customer").findOne(query,function(err,result){
             if (err) handleError(res,err.message,"Failed to get document");//Cambio
             res.json(result);
@@ -181,7 +182,7 @@ app.post('/api/check/', encrypt, async function(req, res, next){
 
                             var process = await db.collection("users").updateOne({_id: result._id},{$set:{accessToken: Token, Arranque: false}})
                             
-                            console.log(process)
+                            /* console.log(process) */
                             if(process.modifiedCount == 1){
                                 fin = {status: 200, accessToken: Token, _identity: req.userEmail, arranque: result.Arranque}
                             }
@@ -217,7 +218,7 @@ app.get('/api/buscar/:termino', function(req, res){
         var dbo = client.db(dbName);
         var val=req.params.termino;
         var query={nombre: {$regex: '.*' + val + '.*',$options:"-i"}} //Cambio esto
-        console.log(query);
+        /* console.log(query); */
         dbo.collection(collection).find(query).toArray(function(err,result){
             if (err) throw err;
             res.json(result);
@@ -228,7 +229,7 @@ app.get('/api/buscar/:termino', function(req, res){
 
 
 
-app.get('/api/getCart',decrypted, async function(req, res){
+/* app.get('/api/getCart',decrypted, async function(req, res){
 
     const email = req.userEmail;
     const token = req.userId;
@@ -290,11 +291,10 @@ app.get('/api/getCart',decrypted, async function(req, res){
         client.close()
     }
     
-})
+}) */
 
 
-app.get('/getCartTotal',decrypted, async function(req, res){
-
+app.get('/api/getCartTotal',decrypted, async function(req, res){
     const email = req.userEmail;
     const token = req.userId;
     let idProd = req.body.id
@@ -302,47 +302,30 @@ app.get('/getCartTotal',decrypted, async function(req, res){
     var result;
     var resultProd;
     const query={$and:[{email: email.toString()},{accessToken: token}]}
-
-       
-
     
-    let client = await MongoClient.connect(url,
-        { useNewUrlParser: true, useUnifiedTopology: true });
-
-    let db = client.db(dbName);
-
-        try {
-
-            result = await db.collection("users").findOne(query);
-
+    client.connect(function(err){
+        if(err) throw err;
+        var dbo = client.db(dbName);
+        var query={email:email}//cambio
+        console.log(query);
+        //var query={_id: req.params.id}//cambio
+        dbo.collection("users").findOne(query,function(err,result){
             if(result != null){
-
-                try{
-
-                    const get = await db.collection("users").aggregate([
+                    dbo.collection("users").aggregate([
                                                                     {$match:{_id: result._id}},
                                                                         {$project:
                                                                             {total:
-                                                                                {$sum : "$cart.total"}
+                                                                                {$sum : "$cart.Total"}
                                                                                 ,_id:0}}]).toArray(function(err,result){
                                                                                             if (err) throw err;
                                                                                             res.json(result);
                                                                                 })
-
-                }finally{
-
-                    client.close()
-                }
-
-
-
             }else{
                 res.status(401).send()
             }
-        }finally{
-            client.close()
-        }
+        })
     })
+})
 
 
 
@@ -357,7 +340,7 @@ app.post('/api/create-book', function(req,res){
     var disp=req.body.disp; 
     var ruta=req.body.ruta; 
   
-    console.log(req.body)
+    /* console.log(req.body) */
   
    
     client.connect(function(err){
@@ -430,7 +413,7 @@ dbo.collection('listingsAndReviews').updateOne({"_id":_id},{$set:{"likes":like}}
           
 })
 
-app.post('/cart', decrypted, async function(req,res,next){ 
+/* app.post('/cart', decrypted, async function(req,res,next){ 
     const email = req.userEmail;
     const token = req.userId;
     let idProd = req.body.id
@@ -534,7 +517,7 @@ app.post('/cart', decrypted, async function(req,res,next){
 
     
              
- }) 
+ })  */
    
 
 
@@ -605,19 +588,13 @@ app.get('/api/home', async function(req, res, next) {
     
     let client = await MongoClient.connect(url,
         { useNewUrlParser: true, useUnifiedTopology: true });
-
     let db = client.db(dbName);
-
     try{
-
         result = await db.collection("users").findOne(query);
-
         if(1 != 0){
                 res.json({invited: true})
         }else{
-
             var home;
-            
                       await db.collection('products').aggregate([
                         { $lookup:
                             {
@@ -637,23 +614,13 @@ app.get('/api/home', async function(req, res, next) {
                                 Descripcion: 1,
                                 Precio: 1,
                                 invited: {$toBool: false},
-                                cart: {$toInt: result.cart.length}
-                               
-
-                                
+                                cart: {$toInt: result.cart.length}  
                             }
-                        
                         }]).toArray(function(err, result) {
                                             if (err) throw err
-                                             res.json(result)
-                                    
-                                        
-                                    })
-
-                        
+                                             res.json(result) 
+                                    })                
         }
-
-
     }finally{
         client.close();
     }
@@ -686,11 +653,43 @@ app.get('/api/home-guest',decrypted,async function(req, res) {
             try{
 
                 result = await db.collection("productos").find().toArray();
-                console.log(result)
+                /* console.log(result) */
                 res.json(result)
  
             }finally{
                 client.close()
+             }
+        }
+     }finally {
+        client.close();
+    }  
+});
+
+app.get('/api/getcart',decrypted,async function(req, res) {
+    var result;
+    let email = req.userEmail;
+    let token = req.userId;
+
+    let client = await MongoClient.connect(url,
+        { useNewUrlParser: true, useUnifiedTopology: true });
+
+    let db = client.db(dbName);
+    var query={$and:[{email: email.toString()},{accessToken: token}]}
+
+    try {
+        result = await db.collection("users").findOne(query);
+        
+        if(result == null){
+           fin = {status: 504}
+        }else{
+            try{
+
+                result = await db.collection("users").findOne({ email:email });
+                console.log(result);
+                res.json(result);
+ 
+            }finally{
+                client.close();
              }
         }
      }finally {
@@ -742,7 +741,7 @@ app.get('/api/libro/:id', async function(req, res, next){
     let token = req.userId;
     const idProd = parseInt(req.params.id) 
     var send
-    console.log(idProd)
+    /* console.log(idProd) */
 
     var resultUser;
 
@@ -760,7 +759,7 @@ app.get('/api/libro/:id', async function(req, res, next){
 
                                  send =  await db.collection('productos').findOne({_id: idProd}).then(result =>{
                                      res.json(result)
-                                     console.log(result)
+                                     /* console.log(result) */
                                  })
 
                                
@@ -902,12 +901,12 @@ app.post('/api/update-email/:id/:email', async function (req, res,next) {
     });
 });
 
-app.post('/api/new-Direccion/:id/:Direccion', async function(req,res,next){ 
+app.post('/api/update-Direccion/:id/:Direccion', async function(req,res,next){ 
     await client.connect(function(err){
         if(err) throw err;
      var dbo = client.db(dbName);
      var query = { _id: parseInt(req.params.id) };
-        var value = { $push: {Direccion: {id:req.params.Direccion} } };   
+        var value = { $set: {Direccion: {id:req.params.Direccion} } };   
         //{$push: {Direccion: {id: Direccion}}};
         console.log(query);
         console.log(value);
@@ -1037,35 +1036,18 @@ app.get('/api/shared', async function (req, res,next) {
 
 
 app.get('/api/history',decrypted, async function (req, res,next) {
-   
-
     const idCliente = req.userId
     var result 
     const idProd = req.body.id
     const Email = req.userEmail
-
-
-
-    
     var query={$and:[{email: Email.toString()},{accessToken: idCliente}]}
-    
-
     let client = await MongoClient.connect(url,
         { useNewUrlParser: true, useUnifiedTopology: true });
-
     let db = client.db(dbName);
-
-
-
     try{
-
         result = await db.collection("users").findOne(query)
-
-
         if(result != null ){
-
             try{
-
                 await db.collection("users").aggregate([
                                          {$match:{_id: 2}},
                                                               { $lookup:
@@ -1349,6 +1331,7 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
                                 "Status": true,
                                 "admin": false,
                                 "password":Pass,
+                                "cart": [],
                                 "Arranque":true
                             }
                             
@@ -1375,6 +1358,50 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
         })
               
     })
+
+
+    app.put('/api/cart/:reg',async function(req,res){ 
+        var registro = JSON.parse(req.params.reg);  
+        /* var result; */
+        let email = registro.email;
+        /* console.log(registro); */
+        var _id;
+        var Producto = registro.Producto; 
+        var Marca = registro.Marca; 
+        var Precio = parseInt(registro.Precio);
+        var Clave = parseInt(registro.Clave);   
+        var Cantidad = registro.Cantidad;
+
+        console.log(registro);
+        console.log(email);
+        
+        client.connect(function(err){
+            if(err) throw err;
+            var dbo = client.db(dbName);
+            var query={email:email}//cambio
+            console.log(query);
+            //var query={_id: req.params.id}//cambio
+            dbo.collection("users").findOne(query,function(err,result){
+                if (err) throw res.err;//Cambio
+
+                    if(result != null){
+                            const state = dbo.collection("users").updateOne({_id: result._id},{$push:{cart:{ Producto:Producto,Marca:Marca,
+                                Precio:Precio,Clave:Clave,Cantidad:Cantidad, Total:parseInt(Precio*Cantidad) }}})
+                    
+                            if(state.modifiedCount == 1){
+                                res.json({statusrecord: true})
+                            }else{
+                                res.json({statusrecord: false})
+                            }
+                    }else{
+                        res.json({ error: 404 });
+                    }
+            })
+    
+        })
+              
+    })
+
 
 
     app.delete('/api/libro/:id', function(req,res){
