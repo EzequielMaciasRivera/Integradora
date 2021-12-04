@@ -1412,7 +1412,7 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
             var query = { _id: parseInt(req.params.id)};
             var value = { $set:{activo: false}};
     
-            dbo.collection("Libros").updateOne(query, value, function(err, result){
+            dbo.collection("productos").updateOne(query, value, function(err, result){
                 if (err) throw handleError(res, err.message, "Failed to update documents", 5000);
                 res.json("Documento borrado");
             })
