@@ -27,14 +27,7 @@ export class PrestamoComponent implements OnInit {
   
 
   RegistroFormGrup = this.fb.group({
-    Producto: ['',[Validators.required]],
-    email: ['',[Validators.required]],
-    Marca: ['',[Validators.required]],
-    Fecha_inicio: ['',[Validators.required]],
-    Fecha_fin : ['',[Validators.required]],
-    Precio : ['',[Validators.required]],
-    Clave: ['',[Validators.required]],
-    RutaDeImagen: ['',[Validators.required]]
+    items: ['']
 
   });
 
@@ -72,21 +65,16 @@ export class PrestamoComponent implements OnInit {
 
   }
   
-  AddPrestamo(){
-    this.RegistroFormGrup.patchValue({Producto: this.libro.Producto})
-    this.RegistroFormGrup.patchValue({Clave: this.libro.Clave})
-    this.RegistroFormGrup.patchValue({Marca: this.libro.Marca})
-    this.RegistroFormGrup.patchValue({Precio: this.libro.Precio})
-    this.RegistroFormGrup.patchValue({RutaDeImagen: this.libro.RutaDeImagen})
-    this.RegistroFormGrup.patchValue({email: this._LibrosService.getUser()})
+  AddCompra(){
+    this.RegistroFormGrup.patchValue({items: "this.carts"})
 
     //console.log(JSON.stringify(this.RegistroFormGrup.value));
     console.log(JSON.stringify(this.RegistroFormGrup.value));
      if(this.RegistroFormGrup.valid){
-      this._LibrosService.putPrestamo(this.RegistroFormGrup.value).subscribe(res => {
+      this._LibrosService.putCompras(this.RegistroFormGrup.value).subscribe(res => {
         console.log(res);
         alert('Guardado');
-        this.router.navigateByUrl('/home');
+        //this.router.navigateByUrl('/home');
       });
       this.RegistroFormGrup.reset();
     }else if(!this.RegistroFormGrup.valid){
@@ -148,8 +136,10 @@ export class PrestamoComponent implements OnInit {
         },
         onClientAuthorization: (data) => {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+            this.AddCompra();
             /* this.showSuccess = true; */
         },
+
         onCancel: (data, actions) => {
             console.log('OnCancel', data, actions);
             /* this.showCancel = true; */

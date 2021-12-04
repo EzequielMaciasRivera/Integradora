@@ -7,7 +7,7 @@
                     <path
                         d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                 </svg></button>
-            <h2>Información del libro</h2>
+            <h2>Carrito</h2>
             <table class="table table-dark">
                 <thead>
                     <tr>
@@ -32,7 +32,7 @@
     </div>
     <br>
     <div class="row">
-        <h2>Información del libro: ${{ this.total }}</h2>
+        <h2>Total de la Compra: ${{ this.total }}</h2>
         <div style="text-align: center;" class="col col-md-12">
             <!-- <input class="btn btn-outline-primary btn-lg btn-block" (click)="AddPrestamo()" value="Pagar"> -->
             <ngx-paypal [config]="payPalConfig"></ngx-paypal>

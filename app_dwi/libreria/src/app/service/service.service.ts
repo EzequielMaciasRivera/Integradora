@@ -56,6 +56,19 @@ export class ServiceService {
     );
   }
 
+  putCompras(reg: any):Observable<any> {
+    let Reg = JSON.stringify(reg);
+    let url=`${this.apiUrl}compra`
+    //this.trustedDashboardUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    //console.log(this.trustedDashboardUrl);
+    console.log('añadir');
+    console.log(Reg);
+    /* console.log(JSON.stringify(user)); */
+    return this.http.post<any>(url,reg).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError2<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

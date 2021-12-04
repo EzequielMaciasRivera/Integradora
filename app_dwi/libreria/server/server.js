@@ -1359,6 +1359,62 @@ app.get('/Pagarpeypal',decrypted, async function(req, res){
               
     })
 
+    app.post('/api/compra/:reg', async function(req,res){ 
+        var registro = JSON.parse(req.params.reg);  
+        /* console.log(registro); */
+        var items = registro.items; 
+
+
+        /*client.connect(function(err){
+            if(err) throw err;
+            var dbo = client.db(dbName);
+            var query={email:Correo}//cambio
+            console.log(query);
+            //var query={_id: req.params.id}//cambio
+            dbo.collection("users").findOne(query,function(err,result){
+                if (err) throw res.err;//Cambio
+
+                    if(result == null){
+                        dbo.collection("users").find().sort({_id: -1}).limit(1).toArray(function(err,res1){
+                            if(err) throw err;
+                            var data = { 
+                                "_id" : parseInt(res1[0]._id)+1,
+                                "FirstName": FirstName, 
+                                "LastName":LastName, 
+                                "email":Correo,
+                                "Direccion": [{id: Address}],
+                                "Telefono":Telefono, 
+                                "Status": true,
+                                "admin": false,
+                                "password":Pass,
+                                "cart": [],
+                                "Arranque":true
+                            }
+                            
+                            console.log(data);
+                            if(res1==null){
+                                res.json({error:"Error de servidor"})
+                            }else{
+                                dbo.collection('users').insertOne(data,function(err, result1){ 
+                                    if (err) throw err; 
+                                    console.log("Record inserted Successfully"); 
+                                    //res.json(result);
+                                    res.json({status:"Registrado"});
+                                });
+                            }
+                        });
+                        
+                    
+                    }else{
+                        res.json(result);
+                        console.log("Usuario ya existente")
+                    }
+            })
+    
+        })*/
+              
+    })
+
 
     app.put('/api/cart/:reg',async function(req,res){ 
         var registro = JSON.parse(req.params.reg);  
